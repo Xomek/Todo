@@ -1,3 +1,4 @@
+import MyInput from "./MyInput";
 import Button from "./Button";
 
-export { Button };
+export { MyInput, Button };
