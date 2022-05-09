@@ -1,0 +1,11 @@
+@import "./variables.scss";
+
+@mixin centerContainer(
+  $mWidth: $containerWidth,
+  $LeftRightPadding: $containerPadding
+) {
+  max-width: $mWidth;
+  width: 100%;
+  padding: 0 $LeftRightPadding;
+  margin: 0 auto;
+}

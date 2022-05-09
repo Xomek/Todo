@@ -1,3 +1,9 @@
 body {
   font-family: sans-serif;
+  background-color: $bgBody;
+  color: #fff;
+}
+
+.container {
+  @include centerContainer;
 }
