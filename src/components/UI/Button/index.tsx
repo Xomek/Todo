@@ -2,10 +2,23 @@ import { FC, ButtonHTMLAttributes } from "react";
 import { stylesFilterAndJoin } from "../../../misc/stylesSortAndJoin";
 import styles from "./Button.module.scss";
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+export type ButtonTypes = "addBtn" | "deleteBtn";
 
-const Button: FC<IButtonProps> = ({ children, className, ...props }) => {
-  const ButtonStyles = stylesFilterAndJoin([styles.button, className]);
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  buttonType?: ButtonTypes;
+}
+
+const Button: FC<IButtonProps> = ({
+  children,
+  className,
+  buttonType = "addBtn",
+  ...props
+}) => {
+  const ButtonStyles = stylesFilterAndJoin([
+    styles.button,
+    styles[buttonType],
+    className,
+  ]);
 
   return (
     <button className={ButtonStyles} {...props}>
