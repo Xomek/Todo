@@ -11,8 +11,11 @@ const Tasks: FC<ITasksProps> = ({ className, tasks, ...props }) => {
 
   return (
     <div className={TasksStyles} {...props}>
+      {!tasks.length && (
+        <div className={styles.noTasks}>У вас пока что нету дел</div>
+      )}
       {tasks.map((task) => (
-        <Task task={task} />
+        <Task task={task} key={task._id} />
       ))}
     </div>
   );

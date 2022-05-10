@@ -8,9 +8,14 @@ interface ITaskProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
-  const TaskStyles = stylesFilterAndJoin([styles.tasks, className]);
+  const TaskStyles = stylesFilterAndJoin([styles.task, className]);
 
-  return <div className={TaskStyles} {...props}></div>;
+  return (
+    <div className={TaskStyles} {...props}>
+      <h3 className={styles.title}>{task.title}</h3>
+      <p className={styles.description}>{task.description}</p>
+    </div>
+  );
 };
 
 export default Task;
