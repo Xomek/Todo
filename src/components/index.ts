@@ -1,3 +1,4 @@
+import Title from "./Title";
 import Tasks from "./Tasks";
 
-export { Tasks };
+export { Title, Tasks };
