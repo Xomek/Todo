@@ -1,7 +1,10 @@
 import { FC, HTMLAttributes } from "react";
 import { ITask } from "../../../interfaces/task.interface";
 import { stylesFilterAndJoin } from "../../../misc/stylesSortAndJoin";
-import { useDeleteTaskMutation } from "../../../redux/Api/tasksApi";
+import {
+  useDeleteTaskMutation,
+  useUdpateTaskMutation,
+} from "../../../redux/Api/tasksApi";
 import { Button } from "../../UI";
 import styles from "./Task.module.scss";
 
@@ -11,7 +14,8 @@ interface ITaskProps extends HTMLAttributes<HTMLDivElement> {
 
 const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
   const TaskStyles = stylesFilterAndJoin([styles.task, className]);
-  const [deleteTask, { isLoading, isError }] = useDeleteTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
+  const [udpateTask] = useUdpateTaskMutation();
 
   return (
     <div className={TaskStyles} {...props}>
@@ -19,6 +23,14 @@ const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
         <h3 className={styles.title}>{task.title}</h3>
         <p className={styles.description}>{task.description}</p>
       </div>
+
+      <Button
+        className={styles.updateBtn}
+        buttonType="udpateBtn"
+        onClick={() => udpateTask(task._id)}
+      >
+        Редактировать
+      </Button>
       <Button
         className={styles.deleteBtn}
         buttonType="deleteBtn"

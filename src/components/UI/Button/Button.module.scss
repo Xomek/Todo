@@ -32,3 +32,16 @@
     color: #fff;
   }
 }
+
+.udpateBtn {
+  font-weight: 700;
+  border-radius: 2px;
+  background-color: transparent;
+  color: $blueColor;
+  border: 1px solid $blueColor;
+  &:hover {
+    transition: all 0.2s;
+    background-color: $blueColor;
+    color: #fff;
+  }
+}

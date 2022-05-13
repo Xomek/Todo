@@ -1,10 +1,17 @@
-import { FC } from "react";
-import { AppRoutes, Header } from "./components";
+import { FC, useState } from "react";
+import { AppRoutes, Header, TasksForm } from "./components";
 
 const App: FC = () => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
   return (
     <>
-      <Header />
+      <Header setIsVisible={setIsVisible} />
+      {isVisible && (
+        <div className="container">
+          <TasksForm />
+        </div>
+      )}
       <AppRoutes />
     </>
   );

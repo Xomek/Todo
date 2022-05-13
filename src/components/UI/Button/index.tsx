@@ -2,7 +2,7 @@ import { FC, ButtonHTMLAttributes } from "react";
 import { stylesFilterAndJoin } from "../../../misc/stylesSortAndJoin";
 import styles from "./Button.module.scss";
 
-export type ButtonTypes = "addBtn" | "deleteBtn";
+export type ButtonTypes = "addBtn" | "udpateBtn" | "deleteBtn";
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType?: ButtonTypes;

@@ -17,8 +17,8 @@ const Todos: FC<ITodosProps> = ({ className }) => {
           <div>Loading...</div>
         ) : isError ? (
           <div>Error...</div>
-        ) : data?.tasks ? (
-          <Tasks tasks={data.tasks} />
+        ) : data ? (
+          <Tasks tasks={data} />
         ) : (
           ""
         )}
