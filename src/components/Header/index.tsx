@@ -1,16 +1,14 @@
-import { Dispatch, FC, HTMLAttributes, SetStateAction } from "react";
+import { FC, HTMLAttributes, useContext } from "react";
+import { TasksFormContext } from "../../App";
 import { stylesFilterAndJoin } from "../../misc/stylesSortAndJoin";
-import { useCreateTaskMutation } from "../../redux/Api/tasksApi";
 import { Button } from "../UI";
 import styles from "./Header.module.scss";
 
-interface IHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  setIsVisible: Dispatch<SetStateAction<boolean>>;
-}
+interface IHeaderProps extends HTMLAttributes<HTMLDivElement> {}
 
-const Header: FC<IHeaderProps> = ({ className, setIsVisible }) => {
+const Header: FC<IHeaderProps> = ({ className }) => {
   const HeaderStyles = stylesFilterAndJoin([styles.header, className]);
-  const [createTask, { isLoading, isError }] = useCreateTaskMutation();
+  const visible = useContext(TasksFormContext);
 
   return (
     <header className={HeaderStyles}>
@@ -19,7 +17,7 @@ const Header: FC<IHeaderProps> = ({ className, setIsVisible }) => {
           className={styles.button}
           buttonType={"addBtn"}
           onClick={() => {
-            setIsVisible((prevState) => !prevState);
+            visible.setIsVisible((prevState) => !prevState);
           }}
         >
           Создать задачу
