@@ -38,6 +38,23 @@ const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
     });
   }
 
+  function udpateTaskFunction() {
+    if (
+      !(
+        task.title === inputValues.title &&
+        task.description === inputValues.description
+      )
+    )
+      udpateTask({
+        id: task._id,
+        task: {
+          title: inputValues.title,
+          description: inputValues.description,
+        },
+      });
+    toggleEdit();
+  }
+
   return (
     <div className={TaskStyles} {...props}>
       <div className={styles.content}>
@@ -62,16 +79,7 @@ const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
         <Button
           className={styles.updateBtn}
           buttonType="udpateBtn"
-          onClick={() => {
-            udpateTask({
-              id: task._id,
-              task: {
-                title: inputValues.title,
-                description: inputValues.description,
-              },
-            });
-            toggleEdit();
-          }}
+          onClick={udpateTaskFunction}
         >
           Сохранить
         </Button>
