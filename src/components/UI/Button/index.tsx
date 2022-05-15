@@ -2,15 +2,17 @@ import { FC, ButtonHTMLAttributes } from "react";
 import { stylesFilterAndJoin } from "../../../misc/stylesSortAndJoin";
 import styles from "./Button.module.scss";
 
-export type ButtonTypes = "addBtn" | "udpateBtn" | "deleteBtn";
+export type ButtonType = "addBtn" | "udpateBtn" | "deleteBtn";
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonType?: ButtonTypes;
+  buttonType?: ButtonType;
+  onClick: () => void;
 }
 
 const Button: FC<IButtonProps> = ({
   children,
   className,
+  onClick,
   buttonType = "addBtn",
   ...props
 }) => {
@@ -21,7 +23,14 @@ const Button: FC<IButtonProps> = ({
   ]);
 
   return (
-    <button className={ButtonStyles} {...props}>
+    <button
+      className={ButtonStyles}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      {...props}
+    >
       {children}
     </button>
   );

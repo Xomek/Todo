@@ -13,7 +13,10 @@ export const tasksApi = createApi({
       query: () => "tasks",
       providesTags: ["Tasks"],
     }),
-    createTask: builder.mutation<ITasks, string>({
+    createTask: builder.mutation<
+      ITasks,
+      { title: string; description: string }
+    >({
       query: (task) => ({
         url: "tasks",
         method: "POST",
@@ -21,11 +24,14 @@ export const tasksApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
-    udpateTask: builder.mutation<ITasks, string>({
-      query: (id) => ({
+    udpateTask: builder.mutation<
+      ITasks,
+      { id: string; task: { title: string; description: string } }
+    >({
+      query: ({ id, task }) => ({
         url: "tasks",
-        method: "POST",
-        body: { taskId: id },
+        method: "PUT",
+        body: { taskId: id, task },
       }),
       invalidatesTags: ["Tasks"],
     }),

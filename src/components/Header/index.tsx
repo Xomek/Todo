@@ -13,15 +13,24 @@ const Header: FC<IHeaderProps> = ({ className }) => {
   return (
     <header className={HeaderStyles}>
       <div className="container">
-        <Button
-          className={styles.button}
-          buttonType={"addBtn"}
-          onClick={() => {
-            visible.setIsVisible((prevState) => !prevState);
-          }}
-        >
-          Создать задачу
-        </Button>
+        <div className={styles.inner}>
+          <Button
+            className={styles.button}
+            buttonType={"addBtn"}
+            onClick={() => {
+              visible.setIsVisible((prevState) => !prevState);
+            }}
+          >
+            {visible.isVisible ? "Закрыть" : "Создать задачу"}
+          </Button>
+          <div className={styles.basket}>
+            <img
+              src="./assets/image/basket.png"
+              alt=""
+              className={styles.basketImg}
+            />
+          </div>
+        </div>
       </div>
     </header>
   );

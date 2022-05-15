@@ -1,0 +1,18 @@
+@import "../../../scss/variables.scss";
+
+.mainInput {
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid $bgBody;
+  &::placeholder {
+    color: $bgBody;
+  }
+}
+
+.taskInput {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  cursor: grab;
+  outline: none;
+}

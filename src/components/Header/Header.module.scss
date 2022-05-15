@@ -1,12 +1,23 @@
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.inner {
   height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 30px;
 }
 
 .button {
   padding: 10px 20px;
   font-size: 20px;
+  width: 200px;
+}
+
+.basket {
+  width: 60px;
+  height: 60px;
+}
+
+.basketImg {
+  width: 100%;
+  cursor: pointer;
 }

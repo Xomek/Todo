@@ -1,14 +1,36 @@
+@import "../../../scss/variables.scss";
+
 .task {
   display: flex;
   align-items: center;
+  transition: all 0.2s;
+  padding: 20px 30px;
+  border-radius: 4px;
+  background-color: darken($bgBody, 0.7);
+  user-select: none;
+  cursor: grab;
+  &:hover {
+    transition: all 0.2s;
+    background-color: darken($bgBody, 2);
+  }
 }
 
 .title {
   margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+}
+
+.description {
+  letter-spacing: 1px;
+  line-height: 22px;
+  font-size: 16px;
 }
 
 .content {
   flex: 1;
+  margin-right: 30px;
 }
 
 .updateBtn,
@@ -17,6 +39,16 @@
   font-size: 16px;
 }
 
+.deleteBtn {
+  width: 100px;
+}
+
 .updateBtn {
+  width: 150px;
   margin-right: 20px;
+}
+
+.input {
+  display: block;
+  width: 100%;
 }

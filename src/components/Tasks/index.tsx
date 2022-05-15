@@ -15,7 +15,12 @@ const Tasks: FC<ITasksProps> = ({ className, tasks, ...props }) => {
         <div className={styles.noTasks}>У вас пока что нету дел</div>
       )}
       {tasks.map((task) => (
-        <Task className={styles.task} task={task} key={task._id} />
+        <Task
+          className={styles.task}
+          task={task}
+          key={task._id}
+          draggable={true}
+        />
       ))}
     </div>
   );
