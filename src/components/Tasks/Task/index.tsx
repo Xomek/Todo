@@ -6,6 +6,8 @@ import {
   useUdpateTaskMutation,
 } from "../../../redux/Api/tasksApi";
 import { Button, MyInput } from "../../UI";
+import { Id, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./Task.module.scss";
 
 interface ITaskProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,12 +16,15 @@ interface ITaskProps extends HTMLAttributes<HTMLDivElement> {
 
 const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
   const TaskStyles = stylesFilterAndJoin([styles.task, className]);
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [inputValues, setInputValues] = useState<{
     title: string;
     description: string;
   }>({ title: "", description: "" });
-  const [deleteTask] = useDeleteTaskMutation();
+
+  const [deleteTask, { isError, isSuccess, isLoading }] =
+    useDeleteTaskMutation();
   const [udpateTask] = useUdpateTaskMutation();
 
   useEffect(() => {
@@ -53,6 +58,15 @@ const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
         },
       });
     toggleEdit();
+  }
+
+  useEffect(() => {
+    if (isSuccess) toast.success("Задача удалена");
+    if (isError) toast.error("Что то пошло не так");
+  }, [isError, isSuccess, isLoading]);
+
+  function deleteTaskFunction() {
+    deleteTask(task._id);
   }
 
   return (
@@ -96,10 +110,21 @@ const Task: FC<ITaskProps> = ({ className, task, ...props }) => {
       <Button
         className={styles.deleteBtn}
         buttonType="deleteBtn"
-        onClick={() => deleteTask(task._id)}
+        onClick={deleteTaskFunction}
       >
         Удалить
       </Button>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
