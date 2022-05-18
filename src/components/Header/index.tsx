@@ -1,39 +1,38 @@
-import { FC, HTMLAttributes, useContext } from "react";
+import { FC, HTMLAttributes } from "react";
 import { Link } from "react-router-dom";
-import { TasksFormContext } from "../../App";
 import { stylesFilterAndJoin } from "../../misc/stylesSortAndJoin";
-import { Button } from "../UI";
+import { useGetDeleteTasksQuery } from "../../redux/Api/tasksApi";
 import styles from "./Header.module.scss";
 
-interface IHeaderProps extends HTMLAttributes<HTMLDivElement> {}
+interface IHeaderProps extends HTMLAttributes<HTMLDivElement> {
+  buttons?: any[];
+}
 
-const Header: FC<IHeaderProps> = ({ className }) => {
+const Header: FC<IHeaderProps> = ({ className, buttons }) => {
   const HeaderStyles = stylesFilterAndJoin([styles.header, className]);
-  const visible = useContext(TasksFormContext);
+  const { data } = useGetDeleteTasksQuery("");
 
   return (
     <header className={HeaderStyles}>
-      <div className="container">
-        <div className={styles.inner}>
-          <Button
-            className={styles.button}
-            buttonType={"addBtn"}
-            onClick={() => {
-              visible.setIsVisible((prevState) => !prevState);
-            }}
-          >
-            {visible.isVisible ? "Закрыть" : "Создать задачу"}
-          </Button>
-          <Link to={"/trashcan"}>
-            <div className={styles.basket}>
-              <img
-                src="./assets/image/basket.png"
-                alt=""
-                className={styles.basketImg}
-              />
-            </div>
-          </Link>
-        </div>
+      <div className={styles.inner}>
+        {buttons &&
+          buttons.map((MyButton) => (
+            <MyButton key={MyButton} className={styles.button} />
+          ))}
+        <Link to={"/trashcan"}>
+          <div className={styles.basket}>
+            <img
+              src="./assets/image/basket.png"
+              alt=""
+              className={styles.basketImg}
+            />
+            {data ? (
+              <div className={styles.counter}>{data.length}</div>
+            ) : (
+              <div className={styles.counter}>0</div>
+            )}
+          </div>
+        </Link>
       </div>
     </header>
   );

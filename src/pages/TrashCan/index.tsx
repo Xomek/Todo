@@ -16,17 +16,15 @@ const TrashCan: FC<ITodosProps> = ({ className }) => {
 
   return (
     <div className={TrashCanStyles}>
-      <div className="container">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : isError ? (
-          <div>Error...</div>
-        ) : data ? (
-          <Tasks tasks={data} />
-        ) : (
-          ""
-        )}
-      </div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : isError ? (
+        <div>Error...</div>
+      ) : data ? (
+        <Tasks tasks={data} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

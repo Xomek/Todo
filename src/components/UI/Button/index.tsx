@@ -6,7 +6,7 @@ export type ButtonType = "addBtn" | "udpateBtn" | "deleteBtn";
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType?: ButtonType;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -27,7 +27,7 @@ const Button: FC<IButtonProps> = ({
       className={ButtonStyles}
       onClick={(e) => {
         e.preventDefault();
-        onClick();
+        onClick && onClick();
       }}
       {...props}
     >

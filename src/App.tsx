@@ -1,12 +1,5 @@
-import {
-  createContext,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
-import { AppRoutes, Header, TasksForm } from "./components";
+import { createContext, Dispatch, FC, SetStateAction, useState } from "react";
+import { AppRoutes } from "./components";
 
 interface ITasksFormContext {
   isVisible: boolean;
@@ -23,12 +16,6 @@ const App: FC = () => {
 
   return (
     <TasksFormContext.Provider value={{ isVisible, setIsVisible }}>
-      <Header />
-      {isVisible && (
-        <div className="container">
-          <TasksForm />
-        </div>
-      )}
       <AppRoutes />
     </TasksFormContext.Provider>
   );

@@ -5,8 +5,16 @@ import { publicRoutes } from "../../routes";
 const AppRoutes: FC = () => {
   return (
     <Routes>
-      {publicRoutes.map(({ path, Component }) => (
-        <Route path={path} element={<Component />} key={path} />
+      {publicRoutes.map(({ path, Component, Layout }) => (
+        <Route
+          path={path}
+          element={
+            <Layout>
+              <Component />
+            </Layout>
+          }
+          key={path}
+        />
       ))}
     </Routes>
   );
