@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Todos } from "./pages";
+import { Todos, TrashCan } from "./pages";
 
 interface IRoute {
   path: string;
@@ -12,5 +12,9 @@ export const publicRoutes: RoutesType = [
   {
     path: "/",
     Component: Todos,
+  },
+  {
+    path: "/trashcan",
+    Component: TrashCan,
   },
 ];

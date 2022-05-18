@@ -1,6 +1,9 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
 import { ITasks } from "../../interfaces/tasks.interface";
 import { stylesFilterAndJoin } from "../../misc/stylesSortAndJoin";
+import { useDeleteTaskMutation } from "../../redux/Api/tasksApi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Task from "./Task";
 import styles from "./Tasks.module.scss";
 
@@ -8,6 +11,14 @@ interface ITasksProps extends HTMLAttributes<HTMLDivElement>, ITasks {}
 
 const Tasks: FC<ITasksProps> = ({ className, tasks, ...props }) => {
   const TasksStyles = stylesFilterAndJoin([styles.tasks, className]);
+
+  const [deleteTask, { isError, isSuccess, isLoading }] =
+    useDeleteTaskMutation();
+
+  useEffect(() => {
+    if (isSuccess) toast.success("Задача удалена");
+    if (isError) toast.error("Что то пошло не так");
+  }, [isError, isSuccess, isLoading]);
 
   return (
     <div className={TasksStyles} {...props}>
@@ -20,8 +31,20 @@ const Tasks: FC<ITasksProps> = ({ className, tasks, ...props }) => {
           task={task}
           key={task._id}
           draggable={true}
+          deleteTask={deleteTask}
         />
       ))}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

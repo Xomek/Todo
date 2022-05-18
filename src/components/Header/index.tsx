@@ -1,4 +1,5 @@
 import { FC, HTMLAttributes, useContext } from "react";
+import { Link } from "react-router-dom";
 import { TasksFormContext } from "../../App";
 import { stylesFilterAndJoin } from "../../misc/stylesSortAndJoin";
 import { Button } from "../UI";
@@ -23,13 +24,15 @@ const Header: FC<IHeaderProps> = ({ className }) => {
           >
             {visible.isVisible ? "Закрыть" : "Создать задачу"}
           </Button>
-          <div className={styles.basket}>
-            <img
-              src="./assets/image/basket.png"
-              alt=""
-              className={styles.basketImg}
-            />
-          </div>
+          <Link to={"/trashcan"}>
+            <div className={styles.basket}>
+              <img
+                src="./assets/image/basket.png"
+                alt=""
+                className={styles.basketImg}
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </header>

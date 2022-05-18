@@ -6,6 +6,8 @@
   transition: all 0.2s;
   padding: 20px 30px;
   border-radius: 4px;
+  border: 1px solid rgba(209, 204, 204, 0.404);
+  box-shadow: 0px 6px 10px #000;
   background-color: darken($bgBody, 0.7);
   user-select: none;
   cursor: grab;
