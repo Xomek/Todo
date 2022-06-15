@@ -9,9 +9,16 @@
 }
 
 .button {
-  padding: 10px 20px;
+  width: 220px;
+  height: 46px;
   font-size: 20px;
   min-width: 200px;
+  margin-right: 20px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
 }
 
 .basket {

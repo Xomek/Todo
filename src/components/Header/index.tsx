@@ -15,10 +15,13 @@ const Header: FC<IHeaderProps> = ({ className, buttons }) => {
   return (
     <header className={HeaderStyles}>
       <div className={styles.inner}>
-        {buttons &&
-          buttons.map((MyButton) => (
-            <MyButton key={MyButton} className={styles.button} />
-          ))}
+        <div className={styles.buttons}>
+          {buttons &&
+            buttons.map((MyButton) => (
+              <MyButton key={MyButton} className={styles.button} />
+            ))}
+        </div>
+
         <Link to={"/trashcan"}>
           <div className={styles.basket}>
             <img

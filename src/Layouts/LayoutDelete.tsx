@@ -8,16 +8,25 @@ interface ILayoutDeleteProps extends HTMLAttributes<HTMLDivElement> {}
 const LayoutDelete: FC<ILayoutDeleteProps> = ({ children }) => {
   const BackButton = ({ ...props }) => {
     return (
-      <Button onClick={() => {}} {...props}>
-        <Link to={"/"}>Вернуться назад</Link>
+      <Button {...props}>
+        <Link
+          style={{ width: "100%", height: "100%", paddingTop: "10px" }}
+          to={"/"}
+        >
+          Вернуться назад
+        </Link>
       </Button>
     );
+  };
+
+  const ClearButton = ({ ...props }) => {
+    return <Button {...props}>Очистить корзину</Button>;
   };
 
   return (
     <div>
       <div className="container">
-        <Header buttons={[BackButton]} />
+        <Header buttons={[BackButton, ClearButton]} />
         {children}
       </div>
     </div>

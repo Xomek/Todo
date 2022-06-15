@@ -4,9 +4,7 @@ import { useCreateTaskMutation } from "../../redux/Api/tasksApi";
 import { Button, Form, MyInput } from "../UI";
 import styles from "./TasksForm.module.scss";
 
-interface ITasksFormProps extends HTMLAttributes<HTMLDivElement> {}
-
-const TasksForm: FC<ITasksFormProps> = ({ className }) => {
+const TasksForm: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
   const TasksFormStyles = stylesFilterAndJoin([styles.tasksForm, className]);
   const [createTask, { isLoading, isError }] = useCreateTaskMutation();
   const [inputValues, setInputValues] = useState<{
