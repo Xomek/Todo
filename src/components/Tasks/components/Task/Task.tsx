@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { ITask } from "../../../interfaces/task.interface";
-import { stylesFilterAndJoin } from "../../../misc/stylesSortAndJoin";
-import { useUdpateTaskMutation } from "../../../redux/Api/tasksApi";
-import { Button, MyInput } from "../../UI";
+import { ITask } from "interfaces/task.interface";
+import { useUdpateTaskMutation } from "redux/Api/tasksApi";
+import { Button, TextField } from "components/UI";
+import cn from "classnames";
 import styles from "./Task.module.scss";
 
 interface ITaskProps extends HTMLAttributes<HTMLDivElement> {
@@ -11,7 +11,7 @@ interface ITaskProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Task: FC<ITaskProps> = ({ className, task, deleteTask, ...props }) => {
-  const TaskStyles = stylesFilterAndJoin([styles.task, className]);
+  const TaskStyles = cn([styles.task, className]);
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [inputValues, setInputValues] = useState<{
@@ -61,17 +61,16 @@ const Task: FC<ITaskProps> = ({ className, task, deleteTask, ...props }) => {
   return (
     <div className={TaskStyles} {...props}>
       <div className={styles.content}>
-        <MyInput
+        <TextField
           className={styles.input + " " + styles.title}
-          inputType={"taskInput"}
           name="title"
           onChange={(e) => onChangeFunction(e.target.value, e.target.name)}
           value={inputValues.title}
           readOnly={!isEdit}
         />
-        <MyInput
+
+        <TextField
           className={styles.input + " " + styles.description}
-          inputType={"taskInput"}
           name="description"
           onChange={(e) => onChangeFunction(e.target.value, e.target.name)}
           value={inputValues.description}
@@ -79,28 +78,16 @@ const Task: FC<ITaskProps> = ({ className, task, deleteTask, ...props }) => {
         />
       </div>
       {isEdit ? (
-        <Button
-          className={styles.updateBtn}
-          buttonType="udpateBtn"
-          onClick={udpateTaskFunction}
-        >
+        <Button className={styles.updateBtn} onClick={udpateTaskFunction}>
           Сохранить
         </Button>
       ) : (
-        <Button
-          className={styles.updateBtn}
-          buttonType="udpateBtn"
-          onClick={toggleEdit}
-        >
+        <Button className={styles.updateBtn} onClick={toggleEdit}>
           Редактировать
         </Button>
       )}
 
-      <Button
-        className={styles.deleteBtn}
-        buttonType="deleteBtn"
-        onClick={deleteTaskFunction}
-      >
+      <Button className={styles.deleteBtn} onClick={deleteTaskFunction}>
         Удалить
       </Button>
     </div>

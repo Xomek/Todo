@@ -1,11 +1,11 @@
 import { FC, HTMLAttributes, useState } from "react";
-import { stylesFilterAndJoin } from "../../misc/stylesSortAndJoin";
-import { useCreateTaskMutation } from "../../redux/Api/tasksApi";
-import { Button, Form, MyInput } from "../UI";
+import { useCreateTaskMutation } from "redux/Api/tasksApi";
+import { Button, Form, TextField } from "components/UI";
+import cn from "classnames";
 import styles from "./TasksForm.module.scss";
 
 const TasksForm: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
-  const TasksFormStyles = stylesFilterAndJoin([styles.tasksForm, className]);
+  const TasksFormStyles = cn([styles.tasksForm, className]);
   const [createTask, { isLoading, isError }] = useCreateTaskMutation();
   const [inputValues, setInputValues] = useState<{
     title: string;
@@ -23,7 +23,7 @@ const TasksForm: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
 
   return (
     <Form className={TasksFormStyles}>
-      <MyInput
+      <TextField
         className={styles.input}
         placeholder="Заголовок"
         name="title"
@@ -32,7 +32,8 @@ const TasksForm: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
           handleChange({ name: e.target.name, value: e.target.value })
         }
       />
-      <MyInput
+
+      <TextField
         className={styles.input}
         placeholder="Описание"
         name="description"
@@ -41,6 +42,7 @@ const TasksForm: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
           handleChange({ name: e.target.name, value: e.target.value })
         }
       />
+
       <Button
         className={styles.button}
         onClick={() => {

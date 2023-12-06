@@ -1,42 +1,47 @@
-import { FC, HTMLAttributes } from "react";
-import { Link } from "react-router-dom";
-import { stylesFilterAndJoin } from "../../misc/stylesSortAndJoin";
-import { useGetDeleteTasksQuery } from "../../redux/Api/tasksApi";
+import TasksForm from "components/TasksForm";
+import { Button } from "components/UI";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useGetDeleteTasksQuery } from "redux/Api/tasksApi";
 import styles from "./Header.module.scss";
 
-interface IHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  buttons?: any[];
-}
-
-const Header: FC<IHeaderProps> = ({ className, buttons }) => {
-  const HeaderStyles = stylesFilterAndJoin([styles.header, className]);
+const Header: React.FC = () => {
   const { data } = useGetDeleteTasksQuery("");
 
-  return (
-    <header className={HeaderStyles}>
-      <div className={styles.inner}>
-        <div className={styles.buttons}>
-          {buttons &&
-            buttons.map((MyButton) => (
-              <MyButton key={MyButton} className={styles.button} />
-            ))}
-        </div>
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isTrash = pathname === "/trashcan";
 
-        <Link to={"/trashcan"}>
-          <div className={styles.basket}>
-            <img
-              src="./assets/image/basket.png"
-              alt=""
-              className={styles.basketImg}
-            />
-            {data ? (
-              <div className={styles.counter}>{data.length}</div>
-            ) : (
-              <div className={styles.counter}>0</div>
-            )}
-          </div>
-        </Link>
+  const back = () => {
+    navigate(-1);
+  };
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.buttons}>
+        {isTrash ? (
+          <>
+            <Button onClick={back}>Назад</Button>
+            <Button>Очистить корзину</Button>
+          </>
+        ) : (
+          <TasksForm />
+        )}
       </div>
+
+      <Link to={"/trashcan"}>
+        <div className={styles.basket}>
+          <img
+            src="./assets/image/basket.png"
+            alt="trashIcon"
+            className={styles.basketImg}
+          />
+          {data ? (
+            <div className={styles.counter}>{data.length}</div>
+          ) : (
+            <div className={styles.counter}>0</div>
+          )}
+        </div>
+      </Link>
     </header>
   );
 };

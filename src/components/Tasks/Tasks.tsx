@@ -1,16 +1,16 @@
 import { FC, HTMLAttributes, useEffect } from "react";
-import { ITasks } from "../../interfaces/tasks.interface";
-import { stylesFilterAndJoin } from "../../misc/stylesSortAndJoin";
-import { useDeleteTaskMutation } from "../../redux/Api/tasksApi";
+import { ITasks } from "interfaces/tasks.interface";
+import { useDeleteTaskMutation } from "redux/Api/tasksApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Task from "./Task";
+import Task from "./components/Task";
+import cn from "classnames";
 import styles from "./Tasks.module.scss";
 
 interface ITasksProps extends HTMLAttributes<HTMLDivElement>, ITasks {}
 
 const Tasks: FC<ITasksProps> = ({ className, tasks, ...props }) => {
-  const TasksStyles = stylesFilterAndJoin([styles.tasks, className]);
+  const TasksStyles = cn([styles.tasks, className]);
 
   const [deleteTask, { isError, isSuccess, isLoading }] =
     useDeleteTaskMutation();

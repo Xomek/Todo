@@ -1,0 +1,14 @@
+@import "../../../scss/palette.scss";
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary;
+  }
+}

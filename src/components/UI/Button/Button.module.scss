@@ -1,47 +1,44 @@
-@import "../../../scss/variables.scss";
+@import "../../../scss/palette.scss";
 
 .button {
+  padding: 5px 10px;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-weight: 700;
   border: none;
   outline: none;
   cursor: pointer;
 }
 
-.addBtn {
-  font-weight: 700;
-  border-radius: 4px;
-  border: 1px solid #fff;
+.contained {
+  background-color: $primary;
   color: #fff;
-  background-color: transparent;
-  transition: all 0.1s;
+  transition: all 0.2s;
+
   &:hover {
+    background-color: darken($primary, 10);
     transition: all 0.2s;
-    background-color: #fff;
-    color: $bgBody;
   }
 }
 
-.deleteBtn {
-  font-weight: 700;
-  border-radius: 2px;
+.outlined {
+  border: 2px solid $primary;
   background-color: transparent;
-  color: $errorColor;
-  border: 1px solid $errorColor;
+  color: $primary;
+
   &:hover {
+    border: 2px solid darken($primary, 10);
+    color: darken($primary, 10);
     transition: all 0.2s;
-    background-color: $errorColor;
-    color: #fff;
   }
 }
 
-.udpateBtn {
-  font-weight: 700;
-  border-radius: 2px;
-  background-color: transparent;
-  color: $blueColor;
-  border: 1px solid $blueColor;
+:disabled {
+  background-color: $gray;
+
   &:hover {
-    transition: all 0.2s;
-    background-color: $blueColor;
-    color: #fff;
+    background-color: $gray;
+    cursor: default;
   }
 }

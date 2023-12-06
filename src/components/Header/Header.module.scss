@@ -1,24 +1,17 @@
+@import "../../scss/palette.scss";
 @import "../../scss/variables.scss";
 
-.inner {
-  height: 70px;
+.header {
+  height: $headerHeight;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
 }
 
-.button {
-  width: 220px;
-  height: 46px;
-  font-size: 20px;
-  min-width: 200px;
-  margin-right: 20px;
-}
-
 .buttons {
   display: flex;
-  align-items: center;
+  gap: 20px;
 }
 
 .basket {
