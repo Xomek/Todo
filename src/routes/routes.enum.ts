@@ -1,5 +1,8 @@
 export enum ROUTES_ENUM {
   ROOT = "/",
-  TRASH_CAN = "/trash",
+  TASK = "task:id",
+  TRASH_CAN = "/trashcan",
+  REGISTRATION = "/registration",
+  LOGIN = "/login",
   NOT_FOUND = "*",
 }

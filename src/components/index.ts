@@ -1,5 +1,6 @@
-import Header from "./Header/Header";
 import Tasks from "./Tasks";
-import TasksForm from "./TasksForm/TasksForm";
+import CreateTaskForm from "./CreateTaskForm";
+import Pagination from "./Pagination";
+import Footer from "./Footer";
 
-export { Header, Tasks, TasksForm };
+export { Tasks, CreateTaskForm, Pagination, Footer };

@@ -1,4 +1,4 @@
 import Todos from "./Todos";
-import TrashCan from "./TrashCan";
+import NotFound from "./NotFound";
 
-export { Todos, TrashCan };
+export { Todos, NotFound };

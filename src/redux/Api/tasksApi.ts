@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITask } from "../../interfaces/task.interface";
-import { ITasks } from "../../interfaces/tasks.interface";
+import { TaskInterface } from "interfaces/task.interface";
+import { CreateTaskInterface } from "./types";
 
 export const tasksApi = createApi({
   reducerPath: "tasksApi",
@@ -9,30 +9,27 @@ export const tasksApi = createApi({
     baseUrl: "http://localhost:3000/",
   }),
   endpoints: (builder) => ({
-    getTasks: builder.query<ITask[], string>({
+    getTasks: builder.query<TaskInterface[], void>({
       query: () => "tasks",
       providesTags: ["Tasks"],
     }),
 
-    getDeleteTasks: builder.query<ITask[], string>({
+    getDeletedTasks: builder.query<TaskInterface[], void>({
       query: () => "tasks/deleted",
       providesTags: ["Tasks"],
     }),
 
-    createTask: builder.mutation<
-      ITasks,
-      { title: string; description: string }
-    >({
+    createTask: builder.mutation<TaskInterface, CreateTaskInterface>({
       query: (task) => ({
         url: "tasks",
         method: "POST",
-        body: { task },
+        body: task,
       }),
       invalidatesTags: ["Tasks"],
     }),
 
     udpateTask: builder.mutation<
-      ITasks,
+      TaskInterface,
       { id: string; task: { title: string; description: string } }
     >({
       query: ({ id, task }) => ({
@@ -42,12 +39,12 @@ export const tasksApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
-    
-    deleteTask: builder.mutation<ITasks, string>({
+
+    deleteTask: builder.mutation<TaskInterface, number>({
       query: (id) => ({
         url: "tasks",
         method: "DELETE",
-        body: { taskId: id },
+        body: { id },
       }),
       invalidatesTags: ["Tasks"],
     }),
@@ -56,7 +53,7 @@ export const tasksApi = createApi({
 
 export const {
   useGetTasksQuery,
-  useGetDeleteTasksQuery,
+  useGetDeletedTasksQuery,
   useCreateTaskMutation,
   useUdpateTaskMutation,
   useDeleteTaskMutation,

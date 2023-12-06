@@ -1,20 +1,12 @@
 import { Tasks } from "components";
-import { useGetTasksQuery } from "redux/Api/tasksApi";
+import { useGetTasksQuery } from "redux/api/tasksApi";
 
 const Todos: React.FC = () => {
-  const { data, isLoading, isError } = useGetTasksQuery("");
+  const { data } = useGetTasksQuery();
 
   return (
     <div className="page">
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : isError ? (
-        <div>Error...</div>
-      ) : data ? (
-        <Tasks tasks={data} />
-      ) : (
-        ""
-      )}
+      <Tasks tasks={data || []} />
     </div>
   );
 };

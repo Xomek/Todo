@@ -1,7 +1,7 @@
-export interface ITask {
-  _id: string;
+export interface TaskInterface {
+  id: number;
   title: string;
-  description: string;
+  description?: string;
   isDone: boolean;
   isSave: boolean;
 }
