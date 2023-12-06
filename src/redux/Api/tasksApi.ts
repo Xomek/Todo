@@ -13,10 +13,12 @@ export const tasksApi = createApi({
       query: () => "tasks",
       providesTags: ["Tasks"],
     }),
+
     getDeleteTasks: builder.query<ITask[], string>({
       query: () => "tasks/deleted",
       providesTags: ["Tasks"],
     }),
+
     createTask: builder.mutation<
       ITasks,
       { title: string; description: string }
@@ -28,6 +30,7 @@ export const tasksApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
+
     udpateTask: builder.mutation<
       ITasks,
       { id: string; task: { title: string; description: string } }
@@ -39,6 +42,7 @@ export const tasksApi = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
+    
     deleteTask: builder.mutation<ITasks, string>({
       query: (id) => ({
         url: "tasks",
