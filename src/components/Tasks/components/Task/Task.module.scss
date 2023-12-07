@@ -3,12 +3,18 @@
   align-items: center;
   justify-content: space-between;
   transition: background-color 0.2s;
-  cursor: pointer;
 
-  &:hover {
-    transition: background-color 0.2s;
-    background-color: beige;
+  &.done {
+    .title {
+      text-decoration: line-through;
+    }
   }
+}
+
+.title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .actions {
@@ -19,4 +25,8 @@
     cursor: pointer;
     width: 20px;
   }
+}
+
+img.reloadIcon {
+  transform: scale(-1, 1);
 }

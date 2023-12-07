@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { TaskInterface } from "interfaces/task.interface";
-import { CreateTaskInterface } from "./types";
+import { CreateTaskInterface, UpdateTaskInterface } from "./types";
 
 export const tasksApi = createApi({
   reducerPath: "tasksApi",
@@ -9,13 +9,12 @@ export const tasksApi = createApi({
     baseUrl: "http://localhost:3000/",
   }),
   endpoints: (builder) => ({
-    getTasks: builder.query<TaskInterface[], void>({
-      query: () => "tasks",
-      providesTags: ["Tasks"],
-    }),
+    getTasks: builder.query<TaskInterface[], { skip: number; take: number }>({
+      query: (params) => ({
+        url: "tasks",
+        method: "GET",
+      }),
 
-    getDeletedTasks: builder.query<TaskInterface[], void>({
-      query: () => "tasks/deleted",
       providesTags: ["Tasks"],
     }),
 
@@ -28,14 +27,11 @@ export const tasksApi = createApi({
       invalidatesTags: ["Tasks"],
     }),
 
-    udpateTask: builder.mutation<
-      TaskInterface,
-      { id: string; task: { title: string; description: string } }
-    >({
-      query: ({ id, task }) => ({
+    udpateTask: builder.mutation<TaskInterface, UpdateTaskInterface>({
+      query: (task) => ({
         url: "tasks",
         method: "PUT",
-        body: { taskId: id, task },
+        body: task,
       }),
       invalidatesTags: ["Tasks"],
     }),
@@ -53,7 +49,6 @@ export const tasksApi = createApi({
 
 export const {
   useGetTasksQuery,
-  useGetDeletedTasksQuery,
   useCreateTaskMutation,
   useUdpateTaskMutation,
   useDeleteTaskMutation,

@@ -11,4 +11,21 @@
     width: 30px;
     cursor: pointer;
   }
+
+  input {
+    border: none;
+    background-color: transparent;
+    outline: transparent;
+    color: #212121;
+    font-size: 25px;
+    font-style: italic;
+    letter-spacing: 1px;
+    padding-left: 0;
+
+    &::placeholder {
+      font-size: 25px;
+      font-style: italic;
+      color: #5c5a5a;
+    }
+  }
 }
