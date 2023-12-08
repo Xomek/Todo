@@ -6,6 +6,6 @@
 ) {
   max-width: $mWidth;
   width: 100%;
-  padding: 0 $LeftRightPadding;
+  padding: $LeftRightPadding;
   margin: 0 auto;
 }

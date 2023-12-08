@@ -1,11 +1,7 @@
-import { Tasks } from "components";
+import { TasksList } from "components";
 
 const Todos: React.FC = () => {
-  return (
-    <div className="page">
-      <Tasks />
-    </div>
-  );
+  return <TasksList />;
 };
 
 export default Todos;

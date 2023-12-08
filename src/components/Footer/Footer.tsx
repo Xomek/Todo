@@ -1,23 +1,12 @@
 import { FooterProps } from "./Footer.types";
-import { Pagination } from "components";
-import AddIcon from "assets/icons/add.svg";
-import CloseIcon from "assets/icons/close.svg";
+import { AddTask, Pagination } from "components";
 import styles from "./Footer.module.scss";
 
-const Footer: React.FC<FooterProps> = ({
-  isCreating,
-  handleFormVisible,
-  handlePagination,
-}) => {
+const Footer: React.FC<FooterProps> = ({ isCreating, handleCreating }) => {
   return (
     <footer className={styles.footer}>
       <Pagination />
-
-      {isCreating ? (
-        <img src={CloseIcon} alt="closeIcon" onClick={handleFormVisible} />
-      ) : (
-        <img src={AddIcon} alt="addIcon" onClick={handleFormVisible} />
-      )}
+      <AddTask isCreating={isCreating} handleCreating={handleCreating} />
     </footer>
   );
 };

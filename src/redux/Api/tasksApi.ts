@@ -4,7 +4,7 @@ import { CreateTaskInterface, UpdateTaskInterface } from "./types";
 
 export const tasksApi = createApi({
   reducerPath: "tasksApi",
-  tagTypes: ["Tasks"],
+  tagTypes: ["Tasks", "Task"],
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/",
   }),
@@ -16,6 +16,15 @@ export const tasksApi = createApi({
       }),
 
       providesTags: ["Tasks"],
+    }),
+
+    getTask: builder.query<TaskInterface, any>({
+      query: (taskId) => ({
+        url: `tasks/${taskId}`,
+        method: "GET",
+      }),
+
+      providesTags: ["Task"],
     }),
 
     createTask: builder.mutation<TaskInterface, CreateTaskInterface>({
@@ -33,7 +42,7 @@ export const tasksApi = createApi({
         method: "PUT",
         body: task,
       }),
-      invalidatesTags: ["Tasks"],
+      invalidatesTags: ["Tasks", "Task"],
     }),
 
     deleteTask: builder.mutation<TaskInterface, number>({
@@ -49,6 +58,7 @@ export const tasksApi = createApi({
 
 export const {
   useGetTasksQuery,
+  useGetTaskQuery,
   useCreateTaskMutation,
   useUdpateTaskMutation,
   useDeleteTaskMutation,

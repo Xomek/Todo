@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { TaskProps } from "./Task.types";
 import {
   useDeleteTaskMutation,
@@ -11,6 +12,8 @@ import cn from "classnames";
 import styles from "./Task.module.scss";
 
 const Task: React.FC<TaskProps> = ({ task }) => {
+  const navigate = useNavigate();
+
   const [deleteTask] = useDeleteTaskMutation();
   const [updateTask] = useUdpateTaskMutation();
 
@@ -22,12 +25,16 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     updateTask({ ...task, isDone: !task.isDone });
   };
 
+  const handleNavigateTask = () => {
+    navigate(`/task/${task.id}`);
+  };
+
   return (
     <p className={cn(styles.row, { [styles.done]: task.isDone })}>
       <div className={styles.title}>{task.title}</div>
 
       <div className={styles.actions}>
-        <img src={EditIcon} />
+        <img src={EditIcon} onClick={handleNavigateTask} />
 
         {task.isDone ? (
           <img

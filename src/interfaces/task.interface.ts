@@ -3,5 +3,4 @@ export interface TaskInterface {
   title: string;
   description?: string;
   isDone: boolean;
-  isSave: boolean;
 }

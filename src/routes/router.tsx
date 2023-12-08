@@ -1,6 +1,6 @@
 import { MainLayoyt } from "layouts";
 import { createBrowserRouter } from "react-router-dom";
-import { NotFound, Todos } from "pages";
+import { EditTask, NotFound, Todos } from "pages";
 import { ROUTES_ENUM } from "./routes.enum";
 
 const router = createBrowserRouter([
@@ -15,12 +15,7 @@ const router = createBrowserRouter([
 
       {
         path: ROUTES_ENUM.TASK,
-        element: <div />,
-      },
-
-      {
-        path: ROUTES_ENUM.TRASH_CAN,
-        element: <div />,
+        element: <EditTask />,
       },
 
       {
