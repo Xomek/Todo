@@ -2,14 +2,31 @@ import { PaginationProps } from "./Pagination.types";
 import cn from "classnames";
 import styles from "./Pagination.module.scss";
 
-const Pagination: React.FC<PaginationProps> = () => {
+const Pagination: React.FC<PaginationProps> = ({
+  total,
+  currentPage,
+  itemsPerPage,
+  paginate,
+}) => {
+  const pageNumbers: number[] = [];
+
+  for (let i = 1; i <= Math.ceil(total / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   return (
     <div className={styles.pagination}>
-      <div className={cn(styles.page, styles.active)}>1</div>
-      <div className={styles.page}>2</div>
-      <div className={styles.page}>3</div>
-      <div className={styles.page}>4</div>
-      <div className={styles.page}>5</div>
+      {pageNumbers.map((number) => (
+        <div
+          key={number}
+          className={cn(styles.page, {
+            [styles.active]: number === currentPage,
+          })}
+          onClick={() => paginate(number)}
+        >
+          {number}
+        </div>
+      ))}
     </div>
   );
 };

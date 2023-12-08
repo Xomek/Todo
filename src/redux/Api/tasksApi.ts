@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { TaskInterface } from "interfaces/task.interface";
+import { TaskInterface, TasksInterface } from "interfaces/task.interface";
 import { CreateTaskInterface, UpdateTaskInterface } from "./types";
 
 export const tasksApi = createApi({
@@ -9,9 +9,9 @@ export const tasksApi = createApi({
     baseUrl: "http://localhost:3000/",
   }),
   endpoints: (builder) => ({
-    getTasks: builder.query<TaskInterface[], { skip: number; take: number }>({
-      query: (params) => ({
-        url: "tasks",
+    getTasks: builder.query<TasksInterface, { skip: number; take: number }>({
+      query: ({ skip, take }) => ({
+        url: `tasks/${skip}/${take}`,
         method: "GET",
       }),
 
@@ -57,7 +57,7 @@ export const tasksApi = createApi({
 });
 
 export const {
-  useGetTasksQuery,
+  useLazyGetTasksQuery,
   useGetTaskQuery,
   useCreateTaskMutation,
   useUdpateTaskMutation,

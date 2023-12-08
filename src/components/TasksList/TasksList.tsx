@@ -1,39 +1,67 @@
-import { useGetTasksQuery } from "redux/api/tasksApi";
-import { useState } from "react";
+import { useLazyGetTasksQuery } from "redux/api/tasksApi";
+import { useEffect, useState } from "react";
 import { TasksListProps } from "./Tasks.types";
 import Task from "./components/Task";
-import { AddTask, CreateTaskForm, Footer } from "components";
+import { AddTask, CreateTaskForm, Pagination } from "components";
 import styles from "./TasksList.module.scss";
 
 const TasksList: React.FC<TasksListProps> = () => {
-  const [pagination, setPagination] = useState({ skip: 0, take: 5 });
+  const [paginationParams, setPaginationParams] = useState({
+    skip: 0,
+    take: 10,
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
   const [isCreating, setIsCreating] = useState(false);
 
-  const { data } = useGetTasksQuery(pagination);
+  const [getTasks, { data }] = useLazyGetTasksQuery();
 
   const handleCreating = () => {
     setIsCreating((prevState) => !prevState);
   };
 
+  const paginate = (page: number) => {
+    setCurrentPage(page);
+    setPaginationParams((prevState) => ({
+      ...prevState,
+      skip:
+        page < currentPage
+          ? prevState.skip - prevState.take
+          : prevState.skip + prevState.take,
+    }));
+  };
+
+  useEffect(() => {
+    getTasks(paginationParams);
+  }, [paginationParams]);
+
   return (
     <div className={styles.tasks}>
       <div>
-        {data?.map((task) => (
+        {data?.tasks.map((task) => (
           <Task key={task.id} task={task} />
         ))}
 
         {isCreating && <CreateTaskForm handleFormVisible={handleCreating} />}
       </div>
 
-      {!data?.length && (
+      {!data?.tasks.length && (
         <div className={styles.notTasks}>
           <div>У вас нет задач</div>
           <AddTask isCreating={isCreating} handleCreating={handleCreating} />
         </div>
       )}
 
-      {data?.length && (
-        <Footer isCreating={isCreating} handleCreating={handleCreating} />
+      {data?.tasks.length && (
+        <footer className={styles.footer}>
+          <Pagination
+            total={data.total}
+            currentPage={currentPage}
+            itemsPerPage={paginationParams.take}
+            paginate={paginate}
+          />
+          <AddTask isCreating={isCreating} handleCreating={handleCreating} />
+        </footer>
       )}
     </div>
   );

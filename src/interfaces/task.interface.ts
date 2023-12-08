@@ -4,3 +4,8 @@ export interface TaskInterface {
   description?: string;
   isDone: boolean;
 }
+
+export interface TasksInterface {
+  tasks: TaskInterface[];
+  total: number;
+}

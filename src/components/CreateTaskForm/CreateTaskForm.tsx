@@ -20,13 +20,13 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
     setForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleCreateTask = () => {
+  const handleSubmit = () => {
     createTask(form);
     handleFormVisible();
   };
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <TextField
         value={form?.title}
         name="title"
@@ -41,7 +41,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
         placeholder="Описание"
       />
 
-      <img src={SaveIcon} alt="completeIcon" onClick={handleCreateTask} />
+      <img src={SaveIcon} alt="completeIcon" onClick={handleSubmit} />
     </form>
   );
 };

@@ -30,7 +30,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   };
 
   return (
-    <p className={cn(styles.row, { [styles.done]: task.isDone })}>
+    <div className={cn(styles.row, { [styles.done]: task.isDone })}>
       <div className={styles.title}>{task.title}</div>
 
       <div className={styles.actions}>
@@ -48,7 +48,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
         <img src={DeleteIcon} onClick={handleDeleteTask} />
       </div>
-    </p>
+    </div>
   );
 };
 
