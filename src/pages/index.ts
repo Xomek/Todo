@@ -1,5 +1,5 @@
-import Todos from "./Todos";
 import EditTask from "./EditTask";
+import TasksList from "./TasksList";
 import NotFound from "./NotFound";
 
-export { Todos, EditTask, NotFound };
+export { EditTask, TasksList, NotFound };

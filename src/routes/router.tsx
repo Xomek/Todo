@@ -1,6 +1,6 @@
 import { MainLayoyt } from "layouts";
 import { createBrowserRouter } from "react-router-dom";
-import { EditTask, NotFound, Todos } from "pages";
+import { EditTask, NotFound, TasksList } from "pages";
 import { ROUTES_ENUM } from "./routes.enum";
 
 const router = createBrowserRouter([
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTES_ENUM.ROOT,
-        element: <Todos />,
+        element: <TasksList />,
       },
 
       {

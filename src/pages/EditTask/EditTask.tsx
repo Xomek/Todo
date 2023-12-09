@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { TextField } from "components/UI";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetTaskQuery, useUdpateTaskMutation } from "redux/api/tasksApi";
+import { toast } from "react-toastify";
 import SaveIcon from "assets/icons/save.svg";
+import BackIcon from "assets/icons/back.svg";
 import { ROUTES_ENUM } from "routes/routes.enum";
 import cn from "classnames";
 import styles from "./EditTask.module.scss";
@@ -23,8 +25,14 @@ const EditTask: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    updateTask({ ...form, id: data?.id || 0, isDone: data?.isDone });
+    updateTask({ ...form, id: data?.id || 0, isDone: data?.isDone })
+      .unwrap()
+      .then(() => toast.success("Задача успешно обновлена"));
     navigate(ROUTES_ENUM.ROOT);
+  };
+
+  const back = () => {
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -33,6 +41,13 @@ const EditTask: React.FC = () => {
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
+      <img
+        src={BackIcon}
+        alt="backIcon"
+        className={styles.backIcon}
+        onClick={back}
+      />
+
       <TextField
         className={cn(styles.input, styles.title)}
         value={form?.title}

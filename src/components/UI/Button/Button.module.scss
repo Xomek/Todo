@@ -12,24 +12,24 @@
 }
 
 .contained {
-  background-color: $primary;
+  background-color: #323232;
   color: #fff;
   transition: all 0.2s;
 
   &:hover {
-    background-color: darken($primary, 10);
+    background-color: darken(#323223, 10);
     transition: all 0.2s;
   }
 }
 
 .outlined {
-  border: 2px solid $primary;
+  border: 2px solid #323232;
   background-color: transparent;
-  color: $primary;
+  color: #323232;
 
   &:hover {
-    border: 2px solid darken($primary, 10);
-    color: darken($primary, 10);
+    border: 2px solid darken(#323232, 10);
+    color: darken(#323232, 10);
     transition: all 0.2s;
   }
 }

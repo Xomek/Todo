@@ -3,6 +3,7 @@ import { TextField } from "components/UI";
 import { useCreateTaskMutation } from "redux/api/tasksApi";
 import { CreateTaskInterface } from "redux/api/types";
 import { CreateTaskFormProps } from "./CreateTaskForm.types";
+import { toast } from "react-toastify";
 import SaveIcon from "assets/icons/save.svg";
 import styles from "./CreateTaskForm.module.scss";
 
@@ -21,7 +22,9 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
   };
 
   const handleSubmit = () => {
-    createTask(form);
+    createTask(form)
+      .unwrap()
+      .then(() => toast.success("Задача успешно создана"));
     handleFormVisible();
   };
 

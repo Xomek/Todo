@@ -16,17 +16,18 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className={styles.pagination}>
-      {pageNumbers.map((number) => (
-        <div
-          key={number}
-          className={cn(styles.page, {
-            [styles.active]: number === currentPage,
-          })}
-          onClick={() => paginate(number)}
-        >
-          {number}
-        </div>
-      ))}
+      {pageNumbers.length > 1 &&
+        pageNumbers.map((number) => (
+          <div
+            key={number}
+            className={cn(styles.page, {
+              [styles.active]: number === currentPage,
+            })}
+            onClick={() => currentPage !== number && paginate(number)}
+          >
+            {number}
+          </div>
+        ))}
     </div>
   );
 };
