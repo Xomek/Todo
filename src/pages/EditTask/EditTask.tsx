@@ -20,15 +20,21 @@ const EditTask: React.FC = () => {
     description: "",
   });
 
+  const [isChange, setIsChange] = useState(false);
+
   const handleChange = (value: string, name: string) => {
     setForm((prevState: any) => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = () => {
-    updateTask({ ...form, id: data?.id || 0, isDone: data?.isDone })
-      .unwrap()
-      .then(() => toast.success("Задача успешно обновлена"));
-    navigate(ROUTES_ENUM.ROOT);
+    if (
+      !(data?.title === form.title && data?.description === form.description)
+    ) {
+      updateTask({ ...form, id: data?.id || 0, isDone: data?.isDone })
+        .unwrap()
+        .then(() => toast.success("Задача успешно обновлена"));
+      navigate(ROUTES_ENUM.ROOT);
+    }
   };
 
   const back = () => {
@@ -38,6 +44,14 @@ const EditTask: React.FC = () => {
   useEffect(() => {
     if (data) setForm({ title: data.title, description: data.description });
   }, [data]);
+
+  useEffect(() => {
+    if (data?.title === form.title && data?.description === form.description) {
+      setIsChange(false);
+    } else {
+      setIsChange(true);
+    }
+  }, [form]);
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
@@ -59,7 +73,11 @@ const EditTask: React.FC = () => {
         onChange={(e) => handleChange(e.target.value, e.target.name)}
       />
 
-      <SaveIcon onClick={handleSubmit} />
+      <SaveIcon
+        fill={isChange ? "black" : "gray"}
+        cursor={isChange ? "pointer" : "default"}
+        onClick={handleSubmit}
+      />
     </form>
   );
 };

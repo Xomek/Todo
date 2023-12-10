@@ -1,14 +1,17 @@
 import { useLazyGetTasksQuery } from "redux/api/tasksApi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PaperContext } from "layouts/MainLayout";
 import { TasksListProps } from "./Tasks.types";
 import Task from "./components/Task";
 import { AddTask, CreateTaskForm, Pagination } from "components";
 import styles from "./TasksList.module.scss";
 
 const TasksList: React.FC<TasksListProps> = () => {
+  const height = useContext<any>(PaperContext);
+
   const [paginationParams, setPaginationParams] = useState({
     skip: 0,
-    take: 10,
+    take: 0,
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,16 +27,20 @@ const TasksList: React.FC<TasksListProps> = () => {
     setCurrentPage(page);
     setPaginationParams((prevState) => ({
       ...prevState,
-      skip:
-        page < currentPage
-          ? prevState.skip - prevState.take
-          : prevState.skip + prevState.take,
+      skip: prevState.take * (page - 1),
     }));
   };
 
   useEffect(() => {
-    getTasks(paginationParams);
+    if (paginationParams.take > 0) getTasks(paginationParams);
   }, [paginationParams]);
+
+  useEffect(() => {
+    setPaginationParams((prevState) => ({
+      ...prevState,
+      take: Math.floor((height - 100) / 70), // по хорошему переделать на слежение в лайф режиме на изменением высоты листка
+    }));
+  }, [height]);
 
   return (
     <div className={styles.tasks}>
