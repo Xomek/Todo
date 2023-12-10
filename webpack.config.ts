@@ -61,7 +61,7 @@ const config: webpack.Configuration = {
     static: {
       directory: path.resolve(__dirname, "public", "index.html"),
     },
-    port: 3000,
+    port: 3001,
     allowedHosts: ["all"],
     open: true,
     historyApiFallback: true,

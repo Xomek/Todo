@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TextField } from "components/UI";
 import { useCreateTaskMutation } from "redux/api/tasksApi";
 import { CreateTaskInterface } from "redux/api/types";
@@ -17,16 +17,30 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
     description: "",
   });
 
+  const [error, setError] = useState(false);
+
+  const inputTitleRef = useRef<HTMLInputElement>();
+
   const handleChange = (value: string, name: string) => {
     setForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    createTask(form)
-      .unwrap()
-      .then(() => toast.success("Задача успешно создана"));
-    handleFormVisible();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    if (form.title) {
+      createTask(form)
+        .unwrap()
+        .then(() => toast.success("Задача успешно создана"));
+      handleFormVisible();
+    } else {
+      setError(true);
+    }
   };
+
+  useEffect(() => {
+    inputTitleRef.current.focus();
+  }, []);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -35,6 +49,8 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
         name="title"
         onChange={(e) => handleChange(e.target.value, e.target.name)}
         placeholder="Заголовок"
+        error={error}
+        ref={inputTitleRef}
       />
 
       <TextField
@@ -44,6 +60,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
         placeholder="Описание"
       />
 
+      <input type="submit" hidden />
       <SaveIcon onClick={handleSubmit} />
     </form>
   );
