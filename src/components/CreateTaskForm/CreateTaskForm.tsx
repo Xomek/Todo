@@ -44,7 +44,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
         placeholder="Описание"
       />
 
-      <img src={SaveIcon} alt="completeIcon" onClick={handleSubmit} />
+      <SaveIcon onClick={handleSubmit} />
     </form>
   );
 };

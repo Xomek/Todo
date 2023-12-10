@@ -48,19 +48,15 @@ const Task: React.FC<TaskProps> = ({ task }) => {
       <div className={styles.title}>{task.title}</div>
 
       <div className={styles.actions}>
-        <img src={EditIcon} onClick={handleNavigateTask} />
+        <EditIcon onClick={handleNavigateTask} />
 
         {task.isDone ? (
-          <img
-            className={styles.reloadIcon}
-            src={ReloadIcon}
-            onClick={handleComplete}
-          />
+          <ReloadIcon className={styles.reloadIcon} onClick={handleComplete} />
         ) : (
-          <img src={CompleteIcon} onClick={handleComplete} />
+          <CompleteIcon onClick={handleComplete} />
         )}
 
-        <img src={DeleteIcon} onClick={() => setConfirmDialog(true)} />
+        <DeleteIcon onClick={() => setConfirmDialog(true)} />
       </div>
 
       {confirmDialog && (

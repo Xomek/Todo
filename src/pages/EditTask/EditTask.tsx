@@ -41,12 +41,7 @@ const EditTask: React.FC = () => {
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
-      <img
-        src={BackIcon}
-        alt="backIcon"
-        className={styles.backIcon}
-        onClick={back}
-      />
+      <BackIcon className={styles.backIcon} onClick={back} />
 
       <TextField
         className={cn(styles.input, styles.title)}
@@ -64,7 +59,7 @@ const EditTask: React.FC = () => {
         onChange={(e) => handleChange(e.target.value, e.target.name)}
       />
 
-      <img src={SaveIcon} alt="saveIcon" onClick={handleSubmit} />
+      <SaveIcon onClick={handleSubmit} />
     </form>
   );
 };

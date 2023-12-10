@@ -7,9 +7,9 @@ const AddTask: React.FC<AddTaskProps> = ({ isCreating, handleCreating }) => {
   return (
     <div className={styles.addTask}>
       {isCreating ? (
-        <img src={CloseIcon} alt="closeIcon" onClick={handleCreating} />
+        <CloseIcon onClick={handleCreating} />
       ) : (
-        <img src={AddIcon} alt="addIcon" onClick={handleCreating} />
+        <AddIcon onClick={handleCreating} />
       )}
     </div>
   );
