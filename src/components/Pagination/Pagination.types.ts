@@ -3,4 +3,6 @@ export interface PaginationProps {
   currentPage: number;
   itemsPerPage: number;
   paginate: (page: number) => void;
+  toLastPage: () => void;
+  toFirstPage: () => void;
 }

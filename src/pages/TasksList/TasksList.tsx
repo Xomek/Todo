@@ -32,9 +32,17 @@ const TasksList: React.FC<TasksListProps> = () => {
     }));
   };
 
+  const toLastPage = () => {
+    paginate(Math.ceil(data.total / paginationParams.take));
+  };
+
+  const toFirstPage = () => {
+    paginate(1);
+  };
+
   useEffect(() => {
     if (paginationParams.take > 0) getTasks(paginationParams);
-  }, [paginationParams]);
+  }, [paginationParams, currentPage]);
 
   useEffect(() => {
     setPaginationParams((prevState) => ({
@@ -67,6 +75,8 @@ const TasksList: React.FC<TasksListProps> = () => {
             currentPage={currentPage}
             itemsPerPage={paginationParams.take}
             paginate={paginate}
+            toLastPage={toLastPage}
+            toFirstPage={toFirstPage}
           />
           <AddTask isCreating={isCreating} handleCreating={handleCreating} />
         </footer>
