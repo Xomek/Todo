@@ -9,3 +9,8 @@ export interface UpdateTaskInterface {
   description?: string;
   isDone?: boolean;
 }
+
+export interface GetTasksParams {
+  skip: number;
+  take: number;
+}

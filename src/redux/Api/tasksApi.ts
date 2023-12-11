@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { TaskInterface, TasksInterface } from "interfaces/task.interface";
-import { CreateTaskInterface, UpdateTaskInterface } from "./types";
+import $api from ".";
+import {
+  CreateTaskInterface,
+  GetTasksParams,
+  UpdateTaskInterface,
+} from "./types";
 
-export const tasksApi = createApi({
-  reducerPath: "tasksApi",
-  tagTypes: ["Tasks", "Task"],
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/",
-  }),
+export const tasksApi = $api.injectEndpoints({
   endpoints: (builder) => ({
-    getTasks: builder.query<TasksInterface, { skip: number; take: number }>({
+    getTasks: builder.query<TasksInterface, GetTasksParams>({
       query: ({ skip, take }) => ({
         url: `tasks/${skip}/${take}`,
         method: "GET",
@@ -18,7 +18,7 @@ export const tasksApi = createApi({
       providesTags: ["Tasks"],
     }),
 
-    getTask: builder.query<TaskInterface, any>({
+    getTask: builder.query<TaskInterface, string>({
       query: (taskId) => ({
         url: `tasks/${taskId}`,
         method: "GET",

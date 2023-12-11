@@ -1,6 +1,7 @@
 import { useLazyGetTasksQuery } from "redux/api/tasksApi";
 import { useContext, useEffect, useState } from "react";
 import { PaperContext } from "layouts/MainLayout";
+import { GetTasksParams } from "redux/api/types";
 import { TasksListProps } from "./Tasks.types";
 import Task from "./components/Task";
 import { AddTask, CreateTaskForm, Pagination } from "components";
@@ -9,7 +10,7 @@ import styles from "./TasksList.module.scss";
 const TasksList: React.FC<TasksListProps> = () => {
   const height = useContext<any>(PaperContext);
 
-  const [paginationParams, setPaginationParams] = useState({
+  const [paginationParams, setPaginationParams] = useState<GetTasksParams>({
     skip: 0,
     take: 0,
   });

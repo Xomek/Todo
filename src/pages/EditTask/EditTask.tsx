@@ -23,7 +23,7 @@ const EditTask: React.FC = () => {
   const [isChange, setIsChange] = useState(false);
 
   const handleChange = (value: string, name: string) => {
-    setForm((prevState: any) => ({ ...prevState, [name]: value }));
+    setForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = () => {
