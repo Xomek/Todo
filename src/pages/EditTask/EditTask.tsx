@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TextField } from "components/UI";
+import { Loader, TextField } from "components/UI";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetTaskQuery, useUdpateTaskMutation } from "redux/api/tasksApi";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ import styles from "./EditTask.module.scss";
 
 const EditTask: React.FC = () => {
   const { id } = useParams();
-  const { data } = useGetTaskQuery(id);
+  const { data, isLoading } = useGetTaskQuery(id);
   const navigate = useNavigate();
   const [updateTask] = useUdpateTaskMutation();
 
@@ -55,29 +55,32 @@ const EditTask: React.FC = () => {
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
-      <BackIcon className={styles.backIcon} onClick={back} />
-
-      <TextField
-        className={cn(styles.input, styles.title)}
-        value={form?.title}
-        name="title"
-        placeholder="Заголовок"
-        onChange={(e) => handleChange(e.target.value, e.target.name)}
-      />
-
-      <textarea
-        className={cn(styles.input, styles.description)}
-        value={form?.description}
-        name="description"
-        placeholder="Описание"
-        onChange={(e) => handleChange(e.target.value, e.target.name)}
-      />
-
-      <SaveIcon
-        fill={isChange ? "black" : "gray"}
-        cursor={isChange ? "pointer" : "default"}
-        onClick={handleSubmit}
-      />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <BackIcon className={styles.backIcon} onClick={back} />
+          <TextField
+            className={cn(styles.input, styles.title)}
+            value={form?.title}
+            name="title"
+            placeholder="Заголовок"
+            onChange={(e) => handleChange(e.target.value, e.target.name)}
+          />
+          <textarea
+            className={cn(styles.input, styles.description)}
+            value={form?.description}
+            name="description"
+            placeholder="Описание"
+            onChange={(e) => handleChange(e.target.value, e.target.name)}
+          />
+          <SaveIcon
+            fill={isChange ? "black" : "gray"}
+            cursor={isChange ? "pointer" : "default"}
+            onClick={handleSubmit}
+          />
+        </>
+      )}
     </form>
   );
 };

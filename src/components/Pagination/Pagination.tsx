@@ -46,10 +46,8 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={toLastPage}
         width={30}
         height={30}
-        cursor={currentPage === total ? "default" : "pointer"}
-        fill={
-          currentPage === lastPage ? "gray" : "#323232"
-        }
+        cursor={currentPage === lastPage ? "default" : "pointer"}
+        fill={currentPage === lastPage ? "gray" : "#323232"}
       />
     </div>
   );

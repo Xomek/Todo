@@ -6,6 +6,7 @@ import { TasksListProps } from "./Tasks.types";
 import Task from "./components/Task";
 import { AddTask, CreateTaskForm, Pagination } from "components";
 import styles from "./TasksList.module.scss";
+import { Loader } from "components/UI";
 
 const TasksList: React.FC<TasksListProps> = () => {
   const height = useContext<any>(PaperContext);
@@ -15,17 +16,19 @@ const TasksList: React.FC<TasksListProps> = () => {
     take: 0,
   });
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    Number(localStorage.getItem("page")) || 1
+  );
   const [isCreating, setIsCreating] = useState(false);
 
-  const [getTasks, { data }] = useLazyGetTasksQuery();
-
+  const [getTasks, { data, isLoading }] = useLazyGetTasksQuery();
   const handleCreating = () => {
     setIsCreating((prevState) => !prevState);
   };
 
   const paginate = (page: number) => {
     setCurrentPage(page);
+    localStorage.setItem("page", page.toString());
     setPaginationParams((prevState) => ({
       ...prevState,
       skip: prevState.take * (page - 1),
@@ -41,45 +44,63 @@ const TasksList: React.FC<TasksListProps> = () => {
   };
 
   useEffect(() => {
+    const paperHeight = Math.floor((height - 100) / 70);
+
+    if (paperHeight > 0) {
+      setPaginationParams({
+        skip: 10 * (currentPage - 1),
+        take: paperHeight,
+      });
+    }
+  }, [height]);
+
+  useEffect(() => {
     if (paginationParams.take > 0) getTasks(paginationParams);
   }, [paginationParams, currentPage]);
 
-  useEffect(() => {
-    setPaginationParams((prevState) => ({
-      ...prevState,
-      take: Math.floor((height - 100) / 70), // по хорошему переделать на слежение в лайф режиме на изменением высоты листка
-    }));
-  }, [height]);
-
   return (
     <div className={styles.tasks}>
-      <div>
-        {data?.tasks.map((task) => (
-          <Task key={task.id} task={task} />
-        ))}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <div>
+            {data?.tasks.map((task) => (
+              <Task key={task.id} task={task} />
+            ))}
 
-        {isCreating && <CreateTaskForm handleFormVisible={handleCreating} />}
-      </div>
+            {isCreating && (
+              <CreateTaskForm handleFormVisible={handleCreating} />
+            )}
+          </div>
 
-      {!data?.tasks.length && (
-        <div className={styles.notTasks}>
-          <div>У вас нет задач</div>
-          <AddTask isCreating={isCreating} handleCreating={handleCreating} />
-        </div>
-      )}
+          {!data?.tasks.length && (
+            <div className={styles.notTasks}>
+              <div>У вас нет задач</div>
+              <AddTask
+                isCreating={isCreating}
+                handleCreating={handleCreating}
+              />
+            </div>
+          )}
 
-      {data?.tasks.length && (
-        <footer className={styles.footer}>
-          <Pagination
-            total={data.total}
-            currentPage={currentPage}
-            itemsPerPage={paginationParams.take}
-            paginate={paginate}
-            toLastPage={toLastPage}
-            toFirstPage={toFirstPage}
-          />
-          <AddTask isCreating={isCreating} handleCreating={handleCreating} />
-        </footer>
+          {data?.tasks.length && (
+            <footer className={styles.footer}>
+              <Pagination
+                total={data.total}
+                currentPage={currentPage}
+                itemsPerPage={paginationParams.take}
+                paginate={paginate}
+                toLastPage={toLastPage}
+                toFirstPage={toFirstPage}
+              />
+              <AddTask
+                isCreating={isCreating}
+                handleCreating={handleCreating}
+              />
+            </footer>
+          )}
+        </>
       )}
     </div>
   );
