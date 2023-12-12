@@ -33,6 +33,7 @@ export const tasksApi = $api.injectEndpoints({
         method: "POST",
         body: task,
       }),
+
       invalidatesTags: ["Tasks"],
     }),
 
@@ -42,6 +43,7 @@ export const tasksApi = $api.injectEndpoints({
         method: "PUT",
         body: task,
       }),
+
       invalidatesTags: ["Tasks", "Task"],
     }),
 
@@ -51,6 +53,7 @@ export const tasksApi = $api.injectEndpoints({
         method: "DELETE",
         body: { id },
       }),
+
       invalidatesTags: ["Tasks"],
     }),
   }),

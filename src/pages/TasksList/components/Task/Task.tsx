@@ -14,7 +14,12 @@ import { useState } from "react";
 import cn from "classnames";
 import styles from "./Task.module.scss";
 
-const Task: React.FC<TaskProps> = ({ task }) => {
+const Task: React.FC<TaskProps> = ({
+  task,
+  currentPage,
+  handleCurrentPage,
+  tasksOnPage,
+}) => {
   const navigate = useNavigate();
 
   const [confirmDialog, setConfirmDialog] = useState(false);
@@ -23,9 +28,16 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   const [updateTask] = useUdpateTaskMutation();
 
   const handleDeleteTask = () => {
+    const isLastTaskOnPage = tasksOnPage === 1;
+
     deleteTask(task.id)
       .unwrap()
-      .then(() => toast.success("Задача успешно удалена"));
+      .then(() => {
+        if (isLastTaskOnPage && currentPage > 1) {
+          handleCurrentPage(currentPage - 1);
+        }
+        toast.success("Задача успешно удалена");
+      });
   };
 
   const handleComplete = () => {

@@ -10,6 +10,7 @@ import { Loader } from "components/UI";
 
 const TasksList: React.FC<TasksListProps> = () => {
   const height = useContext<any>(PaperContext);
+  const pageSize = Math.floor((height - 100) / 70);
 
   const [paginationParams, setPaginationParams] = useState<GetTasksParams>({
     skip: 0,
@@ -22,6 +23,7 @@ const TasksList: React.FC<TasksListProps> = () => {
   const [isCreating, setIsCreating] = useState(false);
 
   const [getTasks, { data, isLoading }] = useLazyGetTasksQuery();
+
   const handleCreating = () => {
     setIsCreating((prevState) => !prevState);
   };
@@ -44,12 +46,10 @@ const TasksList: React.FC<TasksListProps> = () => {
   };
 
   useEffect(() => {
-    const paperHeight = Math.floor((height - 100) / 70);
-
-    if (paperHeight > 0) {
+    if (pageSize > 0) {
       setPaginationParams({
         skip: 10 * (currentPage - 1),
-        take: paperHeight,
+        take: pageSize,
       });
     }
   }, [height]);
@@ -66,7 +66,13 @@ const TasksList: React.FC<TasksListProps> = () => {
         <>
           <div>
             {data?.tasks.map((task) => (
-              <Task key={task.id} task={task} />
+              <Task
+                key={task.id}
+                task={task}
+                currentPage={currentPage}
+                handleCurrentPage={(page: number) => paginate(page)}
+                tasksOnPage={data?.tasks.length}
+              />
             ))}
 
             {isCreating && (
