@@ -20,18 +20,17 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className={styles.pagination}>
+      <LastSvg
+        onClick={toFirstPage}
+        transform="scale(-1, -1)"
+        width={30}
+        height={30}
+        cursor={currentPage === 1 ? "default" : "pointer"}
+        fill={currentPage === 1 ? "gray" : "#323232"}
+      />
       {pageNumbers.length > 1 &&
         pageNumbers.map((number) => (
           <>
-            <LastSvg
-              onClick={toFirstPage}
-              transform="scale(-1, -1)"
-              width={30}
-              height={30}
-              cursor={currentPage === 1 ? "default" : "pointer"}
-              fill={currentPage === 1 ? "gray" : "#323232"}
-            />
-
             <div
               key={number}
               className={cn(styles.page, {
@@ -41,16 +40,15 @@ const Pagination: React.FC<PaginationProps> = ({
             >
               {number}
             </div>
-
-            <LastSvg
-              onClick={toLastPage}
-              width={30}
-              height={30}
-              cursor={currentPage === lastPage ? "default" : "pointer"}
-              fill={currentPage === lastPage ? "gray" : "#323232"}
-            />
           </>
         ))}
+      <LastSvg
+        onClick={toLastPage}
+        width={30}
+        height={30}
+        cursor={currentPage === lastPage ? "default" : "pointer"}
+        fill={currentPage === lastPage ? "gray" : "#323232"}
+      />
     </div>
   );
 };
